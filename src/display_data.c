@@ -247,7 +247,7 @@ int show_specific_fact_for_all_planets(planet_t *planet,unsigned int num)
     printf("Error.\n");
     return ERROR;
   }
-
+/*fin de archivo*/
   for (int i = 0; i < num; ++i)
   {
     printf("\n\n%s\n",planet[i].name);
