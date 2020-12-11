@@ -19,6 +19,7 @@
 /*
  * Facts that should be available in the data base.
  */
+
 enum specific_fact {
   mass,
   diameter,
@@ -31,7 +32,8 @@ enum specific_fact {
   orbital_period,
   orbital_velocity,
   mean_temperature,
-  pressure,moons,
+  pressure,
+  moons,
   ring_system,
   magnetic_field
 };
@@ -41,7 +43,7 @@ enum specific_fact {
  * in the data base for each planet or celestial object.
  */
 
-char available_information_in_the_database[AVAILABLE_INFORMATION][MAX_STR_LENGHT]={
+char available_information_in_the_database[AVAILABLE_INFORMATION-UNIT][MAX_STR_LENGHT]={
     "Mass",
     "Diameter",
     "Density",
@@ -59,6 +61,7 @@ char available_information_in_the_database[AVAILABLE_INFORMATION][MAX_STR_LENGHT
     "Magnetic field"
 };
 
+
 void show_available_facts_in_data_base(void)
 {
   printf("\nAvailable information in the data base:\n");
@@ -69,6 +72,19 @@ void show_available_facts_in_data_base(void)
   }
   printf(".........................................................\n");
 }
+
+void show_comparable_facts_in_data_base(void)
+{
+  printf("\nInfomation contained in the data base by which planets or celestial objects can be compared:\n");
+  printf(".........................................................\n");
+  for (int i = 0; i < AVAILABLE_COMPARATION_CRITERIA-UNIT; ++i)
+  {
+    printf("%d-%s\n",i+UNIT,available_information_in_the_database[i]);
+  }
+  printf(".........................................................\n");
+}
+
+
 
 
 void print_data(planet_t *planet,int selected_planet){
@@ -93,7 +109,7 @@ void print_data(planet_t *planet,int selected_planet){
 }
 
 void show_planets_in_data_base(planet_t *planet,unsigned int num){
-  printf("\nCurrent planets contained in the data base:\n");
+  printf("\nCurrent objects contained in the data base:\n");
   printf("..........................................................\n");
 
   for (int i = 0; i < num; ++i){
@@ -142,7 +158,7 @@ int show_specific_fact_for_a_planet(planet_t *planet,unsigned int num)
         return ERROR;
   }
 
-  /*The user input needs to be at most the number of planets an celestial
+  /*The user input needs to be at most the number of planets and celestial
   objects contained in the data base, otherwhise an error should appear.*/
   if (selected_planet>num)
   {
@@ -247,7 +263,7 @@ int show_specific_fact_for_all_planets(planet_t *planet,unsigned int num)
     printf("Error.\n");
     return ERROR;
   }
-/*fin de archivo*/
+
   for (int i = 0; i < num; ++i)
   {
     printf("\n\n%s\n",planet[i].name);
@@ -304,4 +320,105 @@ int show_specific_fact_for_all_planets(planet_t *planet,unsigned int num)
     printf("================================================================\n");
   }
   return NO_ERROR;
+}
+
+
+int compare_planets(planet_t *planet,unsigned int num){
+  unsigned int selected_planet_0 = 0;
+  unsigned int selected_planet_1 = 0;
+  enum  specific_fact selected_fact=0;
+  float division_result;
+
+  show_comparable_facts_in_data_base();
+
+
+  printf("\n---------------------------------------------------------------\n");
+  if (selection(&selected_fact, "Enter the fact to be compared") != NO_ERROR)
+  {
+    printf("Error.\n");
+    return ERROR;
+  }
+
+  show_planets_in_data_base(planet,num);
+
+  if (selection(&selected_planet_0, "Enter the object to be compared") != NO_ERROR)
+  {
+    printf("Error.\n");
+    return ERROR;
+  }
+  
+  if (selection(&selected_planet_1, "Enter planet with which it is wanted to compare the previous planet") != NO_ERROR)
+  {
+    printf("Error.\n");
+    return ERROR;
+  }
+  printf("\n---------------------------------------------------------------\n");
+
+  /*The user input needs to be at most the number of planets and celestial
+  objects contained in the data base, otherwhise an error should appear.*/
+
+  /*Also, it is important to take into account (for this particular case only)
+   *that the fact must be compared with the one from another planet or celestial
+   *object, meaning they
+   *cannot be the same.
+   */
+
+  if (selected_planet_0>num || selected_planet_1>num || selected_planet_0==selected_planet_1)
+  {
+    printf("Error.\n");
+    return ERROR;
+  }
+
+  switch(selected_fact-UNIT){
+    case mass:
+      division_result=planet[selected_planet_0-UNIT].mass/planet[selected_planet_1-UNIT].mass;
+      break;
+    case diameter:
+      division_result=planet[selected_planet_0-UNIT].diameter/
+      planet[selected_planet_1-UNIT].diameter;
+      break;
+    case density:
+      division_result=planet[selected_planet_0-UNIT].density/
+      planet[selected_planet_1-UNIT].density;
+      break;      
+    case gravity:
+      division_result=planet[selected_planet_0-UNIT].gravity/
+      planet[selected_planet_1-UNIT].gravity;
+      break;
+    case escape_velocity:
+      division_result=planet[selected_planet_0-UNIT].escape_velocity/
+      planet[selected_planet_1-UNIT].escape_velocity;
+      break;
+    case rotation_period:
+      division_result=planet[selected_planet_0-UNIT].rotation_period/
+      planet[selected_planet_1-UNIT].rotation_period;
+      break;
+    case lenght_of_a_day:
+      division_result=planet[selected_planet_0-UNIT].lenght_of_a_day/
+      planet[selected_planet_1-UNIT].lenght_of_a_day;
+      break;
+    case distance_from_the_sun:
+      division_result=planet[selected_planet_0-UNIT].distance_from_the_sun/
+      planet[selected_planet_1-UNIT].distance_from_the_sun;
+      break;    
+    case orbital_period:
+      division_result=planet[selected_planet_0-UNIT].orbital_period/
+      planet[selected_planet_1-UNIT].orbital_period;
+      break;
+    case orbital_velocity:
+      division_result=planet[selected_planet_0-UNIT].orbital_velocity/
+      planet[selected_planet_1-UNIT].orbital_velocity;
+      break;
+    default:
+      printf("Unknown option.\n"); 
+    }
+
+  printf("\n//For %s the magnitude %s in relation to %s equals: %f //\n"
+    ,planet[selected_planet_0-UNIT].name
+    ,available_information_in_the_database[selected_fact-UNIT]
+    ,planet[selected_planet_1-UNIT].name
+    ,division_result);
+
+  return NO_ERROR;
+
 }

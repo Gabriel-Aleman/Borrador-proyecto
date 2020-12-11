@@ -90,7 +90,7 @@ int main(void)
             show_specific_fact_for_all_planets(planet,lines);
             break;
         case oper_comparer:
-            /*TODO*/
+            compare_planets(planet,lines);
             break;
         case oper_exit:
             printf("\nExiting program...\n");

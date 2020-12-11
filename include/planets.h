@@ -5,10 +5,11 @@
  * or celestial object contained in the data base,
  * AVAILABLE_SORT_CRITERIA: All the criteria by which each element
  */
-#define MAX_STR_LENGHT 1000
+#define MAX_STR_LENGHT 100
 #define LINE 1500
 #define AVAILABLE_INFORMATION 16
 #define AVAILABLE_SORT_CRITERIA 13
+#define AVAILABLE_COMPARATION_CRITERIA 10
 
 /*
  * Structure to store planets information.
@@ -43,10 +44,17 @@ void show_available_sort_criteria(void);
 
 /*
  * This function prints the information available in the data base for each
- * planet or celestial objetc.
+ * planet or celestial object.
  */
 
 void show_available_facts_in_data_base(void);
+
+/*
+ * This function prints the criteria by which all planets or celestial
+ * objects can be compared.
+ */
+
+void show_comparable_facts_in_data_base(void);
 
 /*
  * Allocate memory for the required number of planets or celestial objects.
@@ -162,7 +170,7 @@ int show_specific_fact_for_a_planet(planet_t *planet,unsigned int num);
 int show_all_data_for_all_planet(planet_t *planet, unsigned int num);
 
 /*
- * This function prints only the fact specified by the data for all the
+ * This function prints only the fact specified by the user for all the
  * planets or celestial objects contained in the data base.
  * Argument:
  * planet: Pointer to where the list's memory is allocated.
@@ -173,3 +181,16 @@ int show_all_data_for_all_planet(planet_t *planet, unsigned int num);
  */
 
 int show_specific_fact_for_all_planets(planet_t *planet,unsigned int num);
+
+/*
+ * This function prints the ratio between a certain factor,
+ * for a planet or celestial object in general in relation to another.
+ * Argument:
+ * planet: Pointer to where the list's memory is allocated.
+ * num: Number of elements in the array of structures.
+ * Return:
+ * ERROR if there was a mistake while executing the function.
+ * NO_ERROR the function's task could be completed.
+ */
+
+int compare_planets(planet_t *planet,unsigned int num);
