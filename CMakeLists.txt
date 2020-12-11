@@ -9,6 +9,8 @@ set(sources
   src/main.c
   src/menu.c
   src/display_data.c
+  src/dynamic_memory.c
+  src/file_management.c
   src/sort.c)
 
 include_directories("${PROJECT_SOURCE_DIR}/include")

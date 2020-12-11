@@ -75,7 +75,7 @@ int main(void)
          * Based on the user input, the program operations are called. See the
          * documentation in menu.h for more information about the options.
          */
-        switch (user_selection - 1)
+        switch (user_selection - UNIT)
         {
         case oper_display_all_data_for_a_single_planet:
             show_all_data_for_single_a_planet(planet,lines);
@@ -101,5 +101,5 @@ int main(void)
         }
     }
 
-    return 0;
+    return NO_ERROR;
 }

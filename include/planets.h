@@ -1,7 +1,9 @@
 /*
  * MAX_STR_LENGHT: Maximum size allowed for a string.
  * LINE: Maximum size allowed for a line.
- *define AVAILABLE_INFORMATION: all the information that should be available for a planet in the data base
+ * AVAILABLE_INFORMATION: All the information that should be available for a planet 
+ * or celestial object contained in the data base,
+ * AVAILABLE_SORT_CRITERIA: All the criteria by which each element
  */
 #define MAX_STR_LENGHT 1000
 #define LINE 1500
@@ -31,26 +33,143 @@ typedef struct planet_s{
 	char magnetic_field[MAX_STR_LENGHT];
 }planet_t;
 
-int show_available_sort_criteria(void);
 
-int sort_by(planet_t *planet,  unsigned int num);
+/*
+ * This function prints the criteria by which planets or celestial objects 
+ * can be arranged. 
+ */
+
+void show_available_sort_criteria(void);
+
+/*
+ * This function prints the information available in the data base for each
+ * planet or celestial objetc.
+ */
+
+void show_available_facts_in_data_base(void);
+
+/*
+ * Allocate memory for the required number of planets or celestial objects.
+ * Argument:
+ * planet: Double pointer to return the pointer where the planet list is
+ *        allocated.
+ * num:   Number of elements to the allocated.
+ * Return:
+ * ERROR if the memory cannot be allocated.
+ * NO_ERROR if the memory was succesfully  allocated.
+ */
 
 int alloc_planet_list(planet_t **planet, unsigned int num);
 
+/*
+ * Sort planets or celestial objects according to provided value.
+ * Argument:
+ * planet: Pointer to where the list's memory is allocated.
+ * num: Number of elements in the array of structures.
+ * Return:
+ * ERROR if there was a mistake while executing the function.
+ * NO_ERROR the function's task could be completed.
+ */
+
+int sort_by(planet_t *planet,  unsigned int num);
+
+
+/*
+ * Add a planet or celestial object into the array of structures
+ * based on the content of the data base.
+ * Argument:
+ * planet: Pointer to where the list's memory is allocated.
+ * num: Number of elements in the array of structures.
+ * Return:
+ * ERROR if the data base was not found.
+ * NO_ERROR if the data base could be found.
+ */
+
 int insert_planets(planet_t *planet, unsigned int num);
+
+/*
+ * Get the number of lines in the data base, since it will equal the size
+ * of the array of structures that contains all the information.
+ * the information to be used.
+ * Return:
+ * ERROR if the data base was not found.
+ * NO_ERROR if the data base could be found.
+ */
 
 int get_lines(void);
 
-int print_data(planet_t *planet,int selected_planet);
+/*
+ * This function sole purpose is to print all the information for a planet
+ * or celestial object so that it can be used later in other functions.
+ * Argument:
+ * planet: Pointer to where the list's memory is allocated.
+ * num: Number of elements in the array of structures.
+ */
 
-int show_planets_in_data_base(planet_t *planet,unsigned int num);
+void print_data(planet_t *planet,int selected_planet);
 
-int show_available_facts_in_data_base(void);
+
+/*
+ * This function simply prints the name for every single planet or celestial
+ * object contained in the data base.
+ * Argument:
+ * planet: Pointer to where the list's memory is allocated.
+ * num: Number of elements in the array of structures.
+ * Return:
+ * ERROR if there was a mistake while executing the function.
+ * NO_ERROR the function's task could be completed.
+ */
+
+void show_planets_in_data_base(planet_t *planet,unsigned int num);
+
+/*
+ * This function prints all the data for the planet or celestial object
+ * selected by the user.
+ * Argument:
+ * planet: Pointer to where the list's memory is allocated.
+ * num: Number of elements in the array of structures.
+ * Return:
+ * ERROR if there was a mistake while executing the function.
+ * NO_ERROR the function's task could be completed.
+ */
 
 int show_all_data_for_single_a_planet(planet_t *planet,unsigned int num);
 
+/*
+ * This function prints only the fact specified by the user for the planet 
+ * or celestial object selected by the user.
+ * Argument:
+ * planet: Pointer to where the list's memory is allocated.
+ * num: Number of elements in the array of structures.
+ * Return:
+ * ERROR if there was a mistake while executing the function.
+ * NO_ERROR the function's task could be completed.
+ */
+
 int show_specific_fact_for_a_planet(planet_t *planet,unsigned int num);
 
+/*
+ * This function prints all the data for all the planets  or celestial 
+ * objects contained in the data base.
+ * Argument:
+ * planet: Pointer to where the list's memory is allocated.
+ * num: Number of elements in the array of structures.
+ * Return:
+ * ERROR if there was a mistake while executing the function.
+ * NO_ERROR the function's task could be completed.
+ */
+
 int show_all_data_for_all_planet(planet_t *planet, unsigned int num);
+
+/*
+ * This function prints only the fact specified by the data for all the
+ * planets or celestial objects contained in the data base.
+ * Argument:
+ * planet: Pointer to where the list's memory is allocated.
+ * num: Number of elements in the array of structures.
+ * Return:
+ * ERROR if there was a mistake while executing the function.
+ * NO_ERROR the function's task could be completed.
+ */
 
 int show_specific_fact_for_all_planets(planet_t *planet,unsigned int num);

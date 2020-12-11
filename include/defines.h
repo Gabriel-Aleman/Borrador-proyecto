@@ -8,12 +8,11 @@
 
 #define NO_ERROR 0
 #define ERROR -1
-#define MENU_OFFSET 1
 
 
 /*
-*The following define was made because several operations to be used later in the program involve adding or 
-*substracting a "1", and therefore it exists.
+*The following define was made because several operations to be used later in the
+ program involve adding or substracting a "1", and therefore it exists.
 */
 #define UNIT 1
 

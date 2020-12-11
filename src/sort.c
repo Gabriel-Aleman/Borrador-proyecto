@@ -5,6 +5,11 @@
 #include "defines.h"
 #include "menu.h"
 
+
+/*
+ * Valid sorting options.
+ */
+
 enum sorting 
 {
     mass_sort,
@@ -22,6 +27,11 @@ enum sorting
     name_sort
 };
 
+/*
+ * Array of strings in which each string represents a criteria by which all 
+ * the elements in the data can be arranged.
+ */
+
 char available_sort_criteria[AVAILABLE_SORT_CRITERIA][MAX_STR_LENGHT]={
     "Sort by mass",
     "sort by diameter",
@@ -38,7 +48,13 @@ char available_sort_criteria[AVAILABLE_SORT_CRITERIA][MAX_STR_LENGHT]={
     "Sort by alphabetical order"
 };
 
-int show_available_sort_criteria(void){
+
+/*
+ * Prints the criteria base by which all the elements in the data base can
+ * be arranged.
+ */
+
+void show_available_sort_criteria(void){
   printf("\nAvailable sort criteria:\n");
   printf(".........................................................\n");
   for (int i = 0; i < AVAILABLE_SORT_CRITERIA; ++i)
@@ -46,7 +62,6 @@ int show_available_sort_criteria(void){
     printf("%d-%s\n",i+UNIT,available_sort_criteria[i]);
   }
   printf(".........................................................\n");
-  return NO_ERROR;
 }
 
 /*
@@ -149,7 +164,7 @@ static int mean_temperature_com(const void *a, const void *b)
 }
 
 /*
- * Compare function based on the number of moons.
+ * Compare function based on the number of satelites.
  */
 
 static int moons_com(const void *a, const void *b)
@@ -158,7 +173,7 @@ static int moons_com(const void *a, const void *b)
 }
 
 /*
- * Compare function based on alphabetical order.
+ * Compare function based on the alphabetical order.
  */
 
 static int name_com(const void *a, const void *b)

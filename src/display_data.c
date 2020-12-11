@@ -6,6 +6,19 @@
 #include "defines.h"
 #include "planets.h"
 
+/*
+ * Note that function descriptions are in the header files unless the function
+ * is static.
+ */
+
+/*
+ *In this".c" file you will find all the functions related to displayin any sort
+ *of information in the program.
+ */
+
+/*
+ * Facts that should be available in the data base.
+ */
 enum specific_fact {
   mass,
   diameter,
@@ -22,6 +35,11 @@ enum specific_fact {
   ring_system,
   magnetic_field
 };
+
+/*
+ * Array of strings in which each string represents a fact that should be available
+ * in the data base for each planet or celestial object.
+ */
 
 char available_information_in_the_database[AVAILABLE_INFORMATION][MAX_STR_LENGHT]={
     "Mass",
@@ -41,78 +59,19 @@ char available_information_in_the_database[AVAILABLE_INFORMATION][MAX_STR_LENGHT
     "Magnetic field"
 };
 
-int alloc_planet_list(planet_t **planet, unsigned int num)
+void show_available_facts_in_data_base(void)
 {
-    *planet = (planet_t *)malloc(num * sizeof(planet_t));
-
-    memset(*planet, 0, num * sizeof(planet_t));
-
-    return NO_ERROR;
-}
-
-int insert_planets(planet_t *planet, unsigned int num)
-{
-
-    FILE *fp=fopen("planets.csv", "r");
-
-    if (fp == NULL){
-        printf("Unable to open file.\n");
-        return ERROR;
-    }
-
-    char line_buffer[LINE];
-    char buffer[MAX_STR_LENGHT];
-    int i=0;
-
-    memset(line_buffer,0,sizeof(line_buffer));
-    memset(buffer,0,sizeof(buffer));
-
-    while(fgets(line_buffer,LINE,fp)!=NULL && i<num){
-
-        strncpy(planet[i].name,strtok(line_buffer,","),MAX_STR_LENGHT);
-        planet[i].mass=atof(strtok(NULL,","));
-        planet[i].diameter=atoi(strtok(NULL,","));
-        planet[i].density=atoi(strtok(NULL,","));
-        planet[i].gravity=atof(strtok(NULL,","));
-        planet[i].escape_velocity=atof(strtok(NULL,","));
-        planet[i].rotation_period=atof(strtok(NULL,","));
-        planet[i].lenght_of_a_day=atof(strtok(NULL,","));
-        planet[i].distance_from_the_sun=atof(strtok(NULL,","));     
-        planet[i].orbital_period=atof(strtok(NULL,","));
-        planet[i].orbital_velocity=atof(strtok(NULL,","));
-        planet[i].mean_temperature=atof(strtok(NULL,","));
-        strncpy(planet[i].pressure,strtok(NULL,","),MAX_STR_LENGHT);
-        planet[i].moons=atoi(strtok(NULL,","));
-        strncpy(planet[i].ring_system,strtok(NULL,","),MAX_STR_LENGHT);
-        strncpy(planet[i].magnetic_field,strtok(NULL,","),MAX_STR_LENGHT);
-        memset(buffer,0,sizeof(buffer));
-        i++;
-    }   
-    fclose(fp);
-
-    return NO_ERROR;
-}
-
-int get_lines(void){
-  FILE *fp= fopen("planets.csv", "r"); 
-  if (fp == NULL) { 
-    printf("Unable to open file.\n"); 
-    return ERROR; 
-  } 
-  int count = 1;  
-  char c;   
-  
-  for (c = getc(fp); c != EOF; c = getc(fp)) {
-    if (c == '\n'){ 
-      count++;
-    } 
+  printf("\nAvailable information in the data base:\n");
+  printf(".........................................................\n");
+  for (int i = 0; i < AVAILABLE_INFORMATION-UNIT; ++i)
+  {
+    printf("%d-%s\n",i+UNIT,available_information_in_the_database[i]);
   }
-    /* Return the number of lines*/
-  fclose(fp); 
-  return count; 
+  printf(".........................................................\n");
 }
 
-int print_data(planet_t *planet,int selected_planet){
+
+void print_data(planet_t *planet,int selected_planet){
   printf("\n\n%s\n",planet[selected_planet-UNIT].name);
   printf("================================================================\n");
   printf("Mass (10^24kg): %f\n",planet[selected_planet-UNIT].mass);
@@ -131,10 +90,9 @@ int print_data(planet_t *planet,int selected_planet){
   printf("Does the planet have a ring system?:%s\n",planet[selected_planet-UNIT].ring_system);
   printf("Does the planet have a global magnetic field?:%s\n",planet[selected_planet-UNIT].magnetic_field);
   printf("================================================================\n");
-  return NO_ERROR;
 }
 
-int show_planets_in_data_base(planet_t *planet,unsigned int num){
+void show_planets_in_data_base(planet_t *planet,unsigned int num){
   printf("\nCurrent planets contained in the data base:\n");
   printf("..........................................................\n");
 
@@ -142,22 +100,8 @@ int show_planets_in_data_base(planet_t *planet,unsigned int num){
     printf("%d-%s\n",i+UNIT,planet[i].name);
   }
   printf("..........................................................\n");
-  return NO_ERROR;
-
 }
 
-
-int show_available_facts_in_data_base(void)
-{
-  printf("\nAvailable information in the data base:\n");
-  printf(".........................................................\n");
-  for (int i = 0; i < AVAILABLE_INFORMATION-UNIT; ++i)
-  {
-    printf("%d-%s\n",i+UNIT,available_information_in_the_database[i]);
-  }
-  printf(".........................................................\n");
-  return NO_ERROR;
-}
 
 int show_all_data_for_single_a_planet(planet_t *planet,unsigned int num)
 {
@@ -172,7 +116,10 @@ int show_all_data_for_single_a_planet(planet_t *planet,unsigned int num)
     return ERROR;
     }
 
-    if (selected_planet>num)
+
+ /*The user input needs to be at most the number of planets an celestial
+  objects contained in the data base, otherwhise an error should appear.*/
+  if (selected_planet>num)
   {
     printf("Error.\n");
     return ERROR;   
@@ -187,7 +134,7 @@ int show_specific_fact_for_a_planet(planet_t *planet,unsigned int num)
   show_planets_in_data_base(planet,num);
 
   unsigned int selected_planet = 0;
-  unsigned int selected_fact = 0;
+  enum specific_fact selected_fact = 0;
 
   if (selection(&selected_planet, "Enter the planet of which it's data is wanted") != NO_ERROR)
   {
@@ -195,6 +142,8 @@ int show_specific_fact_for_a_planet(planet_t *planet,unsigned int num)
         return ERROR;
   }
 
+  /*The user input needs to be at most the number of planets an celestial
+  objects contained in the data base, otherwhise an error should appear.*/
   if (selected_planet>num)
   {
     printf("Error.\n");
@@ -265,8 +214,10 @@ int show_specific_fact_for_a_planet(planet_t *planet,unsigned int num)
 }
 
 /*
- * Compare to leave  the list as it was for default.
+ * Compare function to leave  the list as it was for default right after showing all the data 
+ * availablre in the data base arranged in a certain order for each planet or celestial object.
  */
+
 static int distance_from_the_sun_from_nearest_to_farthest(const void *a, const void *b)
 {
     return ((planet_t *)a)->distance_from_the_sun > ((planet_t *)b)->distance_from_the_sun;
@@ -287,7 +238,7 @@ int show_all_data_for_all_planet(planet_t *planet, unsigned int num)
 int show_specific_fact_for_all_planets(planet_t *planet,unsigned int num)
 {
 
-  unsigned int selected_fact = 0;
+  enum specific_fact selected_fact = 0;
 
   show_available_facts_in_data_base();
 
@@ -295,12 +246,6 @@ int show_specific_fact_for_all_planets(planet_t *planet,unsigned int num)
   {
     printf("Error.\n");
     return ERROR;
-  }
-
-  if (selected_fact>AVAILABLE_INFORMATION)
-  {
-    printf("Error.\n");
-    return ERROR; 
   }
 
   for (int i = 0; i < num; ++i)
