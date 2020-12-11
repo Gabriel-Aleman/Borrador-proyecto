@@ -3,11 +3,11 @@
  */
 enum oper_e
 {
-    oper_display_planet_data = 0, /*Display information for a certain planets of the solar system*/
+    oper_display_all_data_for_a_single_planet= 0, /*Displaya all information available for a certain planet*/
+    oper_display_specific_fact_for_a_single_planet, /*Display a  single fact from the data base for all the planets in the solar system*/
     oper_display_solar_system_data, /* Display information for all the planets in the solar system in a given order*/
-    oper_comparer, /* Obtain the factor of a certain magnitude of  planet in relation to another*/
-    oper_display_satelites, /*Show all the satelites of the requested planet present in the data base*/
-    oper_add_satelite, /* Operation to add a satelite to the database of a planet*/
+    oper_display_specific_fact_for_all_planets, /* Display information for all the planets in the solar system in a given order*/
+    oper_comparer, /* Obtain the factor of a certain magnitude for a planet in relation to another*/
     oper_exit, /* Operation to exit */
     oper_last /* Delimiter, keep as the last enum value! */
 };

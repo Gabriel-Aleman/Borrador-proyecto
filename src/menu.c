@@ -18,11 +18,11 @@ typedef struct menu_s
  * be used on the program menu.
  */
 menu_t options[] = {
-    {.option = oper_display_planet_data, .text = "Display information about a planet"},
-    {.option = oper_display_solar_system_data, .text = "Display information about all the planets"},
-    {.option = oper_comparer, .text ="Comparer"},
-    {.option = oper_display_satelites, .text = "Display satelites data base"},
-    {.option = oper_add_satelite, .text = "Add satelite"},
+    {.option = oper_display_all_data_for_a_single_planet, .text = "Display all the information in the data base for a planet"},
+    {.option = oper_display_specific_fact_for_a_single_planet, .text = "Display a fact from the data  base for a planet"},
+    {.option = oper_display_solar_system_data, .text ="Display all the information available in the data base for all planets"},
+    {.option = oper_display_specific_fact_for_all_planets, .text = "Display a fact of choice for all planets"},
+    {.option = oper_comparer, .text = "Obtain the ratio of a certain magnitude between two planets"},
     {.option = oper_exit, .text = "Exit"}};
 
 void clear_input(void)
@@ -38,16 +38,16 @@ void clear_input(void)
 
 
 int welcome_user(void){
-    printf("Welcome user!\n\n");
-    printf("[COOPERNICUS]\n\n");
+    printf("\nWelcome user!\n\n");
+    printf("[COPERNICUS]\n\n");
 
 }
 
 
 int print_menu(void)
 {
-    printf("Option menu:\n");
-    printf("-----------------------------------------------\n");
+  printf("\nOption menu:\n");
+  printf("---------------------------------------------------------------------------------\n");
   for (int i = 0; i < oper_last; i++)
   {
       /*
@@ -59,7 +59,7 @@ int print_menu(void)
           return ERROR;
       }
   }
-  printf("-----------------------------------------------\n");
+  printf("---------------------------------------------------------------------------------\n");
 
   return NO_ERROR;
 }

@@ -1,11 +1,12 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <stdbool.h>
 
 #include "defines.h"
 #include "menu.h"
-
+#include "planets.h"
 
 int main(void)
 {
@@ -13,10 +14,26 @@ int main(void)
     bool cont = true;
 
     /*
-     * The list variable is used to store the pointer to the memory allocated
-     * for the students list.
+     * Try to open the file where there is all the information needed the proceed,
+     *and then exit the program in case that the file was not found.
      */
-   /* planets *list = NULL;*/
+
+     FILE *fp=fopen("planets.csv", "r");
+
+    if (fp == NULL){
+        printf("Unable to open file.\n");
+        return ERROR;
+    }
+
+    int lines=get_lines();
+
+    planet_t *planet=NULL;
+
+    /*create the list where all the information will be allocated*/
+    alloc_planet_list(&planet, lines);
+
+    /*Insert the data from the file into the array of structures previosly made*/
+    insert_planets(planet,lines);
 
     /*
     *Give the user a welcoming and introduce the program.
@@ -60,22 +77,23 @@ int main(void)
          */
         switch (user_selection - 1)
         {
-        case oper_display_planet_data:
-            /*TODO*/
+        case oper_display_all_data_for_a_single_planet:
+            show_all_data_for_single_a_planet(planet,lines);
+            break;
+        case oper_display_specific_fact_for_a_single_planet:
+            show_specific_fact_for_a_planet(planet,lines);
             break;
         case oper_display_solar_system_data:
-            /*TODO*/
+            show_all_data_for_all_planet(planet,lines);
+            break;
+        case oper_display_specific_fact_for_all_planets:
+            show_specific_fact_for_all_planets(planet,lines);
             break;
         case oper_comparer:
             /*TODO*/
             break;
-        case oper_display_satelites:
-            /*TODO*/
-            break;
-        case oper_add_satelite:
-            /*TODO*/
-            break;
         case oper_exit:
+            printf("\nExiting program...\n");
             cont = false;
             break;
         default:

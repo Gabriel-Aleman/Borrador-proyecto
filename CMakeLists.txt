@@ -7,7 +7,9 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ./bin)
 
 set(sources
   src/main.c
-  src/menu.c)
+  src/menu.c
+  src/display_data.c
+  src/sort.c)
 
 include_directories("${PROJECT_SOURCE_DIR}/include")
 
