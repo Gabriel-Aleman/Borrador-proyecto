@@ -124,7 +124,7 @@ int add_planet(planet_t *planet, unsigned int num){
   {
     strcpy(planet[num-UNIT].ring_system, "Yes");
   }
-  else if(magnetic_field==no){
+  else if(ring_system==no){
     strcpy(planet[num-UNIT].ring_system, "No");
   }
   else{
