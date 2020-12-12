@@ -7,19 +7,18 @@
 #include "planets.h"
 
 /*
- * Note that function descriptions are in the header files unless the function
- * is static.
+ *  Note that function descriptions are in the header files unless the function
+ *  is static.
  */
 
 /*
- *In this".c" file you will find all the functions related to displayin any sort
- *of information in the program.
+ * In this".c" file you will find all the functions related to displaying any sort
+ * of information in the program.
  */
 
 /*
  * Facts that should be available in the data base.
  */
-
 enum specific_fact {
   mass,
   diameter,
@@ -42,7 +41,6 @@ enum specific_fact {
  * Array of strings in which each string represents a fact that should be available
  * in the data base for each planet or celestial object.
  */
-
 char available_information_in_the_database[AVAILABLE_INFORMATION-UNIT][MAX_STR_LENGHT]={
     "Mass",
     "Diameter",
@@ -83,9 +81,6 @@ void show_comparable_facts_in_data_base(void)
   }
   printf(".........................................................\n");
 }
-
-
-
 
 void print_data(planet_t *planet,int selected_planet){
   printf("\n\n%s\n",planet[selected_planet-UNIT].name);
@@ -193,35 +188,35 @@ int show_specific_fact_for_a_planet(planet_t *planet,unsigned int num)
       printf("Escape velocity (Km/s):%f\n",planet[selected_planet-UNIT].escape_velocity);
       break;
     case rotation_period:
-        printf("Rotation period (hours):%f\n",planet[selected_planet-UNIT].rotation_period);
-        break;
+      printf("Rotation period (hours):%f\n",planet[selected_planet-UNIT].rotation_period);
+      break;
     case lenght_of_a_day:
-        printf("Lenght of a day (hours):%f\n",planet[selected_planet-UNIT].lenght_of_a_day);
-        break;
+      printf("Lenght of a day (hours):%f\n",planet[selected_planet-UNIT].lenght_of_a_day);
+      break;
     case distance_from_the_sun:
-        printf("Distance from the sun (10^6 km):%Lf\n",planet[selected_planet-UNIT].distance_from_the_sun);
-        break;    
+      printf("Distance from the sun (10^6 km):%Lf\n",planet[selected_planet-UNIT].distance_from_the_sun);
+      break;    
     case orbital_period:
-        printf("Orbital period (terrestial days):%Lf\n",planet[selected_planet-UNIT].orbital_period);
-        break;
+      printf("Orbital period (terrestial days):%Lf\n",planet[selected_planet-UNIT].orbital_period);
+      break;
     case orbital_velocity:
-        printf("Orbital velocity (km/s):%f\n",planet[selected_planet-UNIT].orbital_velocity);
-        break;
+      printf("Orbital velocity (km/s):%f\n",planet[selected_planet-UNIT].orbital_velocity);
+      break;
     case mean_temperature:
-        printf("Mean temperature (C):%d\n",planet[selected_planet-UNIT].mean_temperature);
-        break;
+      printf("Mean temperature (C):%d\n",planet[selected_planet-UNIT].mean_temperature);
+      break;
     case pressure:
-        printf("Surface pressure (atm):%s\n",planet[selected_planet-UNIT].pressure);
-        break;
+      printf("Surface pressure (atm):%s\n",planet[selected_planet-UNIT].pressure);
+      break;
     case moons:
-        printf("Amount of known satelites:%u\n",planet[selected_planet-UNIT].moons);
-        break;
+      printf("Amount of known satelites:%u\n",planet[selected_planet-UNIT].moons);
+      break;
     case ring_system:
-        printf("Does the planet have a ring system?:%s\n",planet[selected_planet-UNIT].ring_system);
-        break;      
+      printf("Does the planet have a ring system?:%s\n",planet[selected_planet-UNIT].ring_system);
+      break;      
     case magnetic_field:
-        printf("Does the planet have a global magnetic field?:%s\n",planet[selected_planet-UNIT].magnetic_field);
-        break;  
+      printf("Does the planet have a global magnetic field?:%s\n",planet[selected_planet-UNIT].magnetic_field);
+      break;  
     default:
         printf("Unknown option.\n");
   }
@@ -229,31 +224,19 @@ int show_specific_fact_for_a_planet(planet_t *planet,unsigned int num)
   return NO_ERROR;
 }
 
-/*
- * Compare function to leave  the list as it was for default right after showing all the data 
- * availablre in the data base arranged in a certain order for each planet or celestial object.
- */
-
-static int distance_from_the_sun_from_nearest_to_farthest(const void *a, const void *b)
-{
-    return ((planet_t *)a)->distance_from_the_sun > ((planet_t *)b)->distance_from_the_sun;
-}
 
 int show_all_data_for_all_planet(planet_t *planet, unsigned int num)
 {
   sort_by(planet, num);
-    /*sort_by(list, sort, num_est);*/
   for (int i = 1; i < num+UNIT; ++i)
   {
     print_data(planet,i);
   }
-  qsort((void *)planet, num, sizeof(planet_t),distance_from_the_sun_from_nearest_to_farthest);
   return NO_ERROR;   
 }
 
 int show_specific_fact_for_all_planets(planet_t *planet,unsigned int num)
 {
-
   enum specific_fact selected_fact = 0;
 
   show_available_facts_in_data_base();
@@ -341,13 +324,15 @@ int compare_planets(planet_t *planet,unsigned int num){
 
   show_planets_in_data_base(planet,num);
 
+  printf("\n");
   if (selection(&selected_planet_0, "Enter the object to be compared") != NO_ERROR)
   {
     printf("Error.\n");
     return ERROR;
   }
-  
-  if (selection(&selected_planet_1, "Enter planet with which it is wanted to compare the previous planet") != NO_ERROR)
+
+  printf("\n");
+  if (selection(&selected_planet_1, "Enter planet or celestial object with which it is wanted to compare the previous planet") != NO_ERROR)
   {
     printf("Error.\n");
     return ERROR;
@@ -413,12 +398,11 @@ int compare_planets(planet_t *planet,unsigned int num){
       printf("Unknown option.\n"); 
     }
 
-  printf("\n//For %s the magnitude %s in relation to %s equals: %f //\n"
+  printf("\n//For %s the magnitude '%s' in relation to %s equals: %f //\n"
     ,planet[selected_planet_0-UNIT].name
     ,available_information_in_the_database[selected_fact-UNIT]
     ,planet[selected_planet_1-UNIT].name
     ,division_result);
 
   return NO_ERROR;
-
 }

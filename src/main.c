@@ -8,8 +8,13 @@
 #include "menu.h"
 #include "planets.h"
 
-
-static int prev_choice=0; 
+/*
+ * Compare function to leave the list ordered according to the distance from the sun.
+ */
+int distance_from_the_sun_from_nearest_to_farthest(const void *a, const void *b)
+{
+    return ((planet_t *)a)->distance_from_the_sun > ((planet_t *)b)->distance_from_the_sun;
+}
 
 
 int main(void)
@@ -39,23 +44,18 @@ int main(void)
     /*Insert the data from the file into the array of structures previosly made*/
     insert_planets(planet,lines);
 
+
     /*
-    *Give the user a welcoming and introduce the program.
-    */
+     * Give the user a welcoming and introduce the program.
+     */
     welcome_user();
 
     while (cont)
     {
         /*
-         *The print_menu function displays the user menu in the screen. If the
-         * menu cannot be displayed, then the program must exit with an error
-         * code.
+         * The print_menu function displays the user menu in the screen. If the
+         * menu cannot be displayed, then the program must exit with an error code.
          */
-
-        if (prev_choice==oper_new_element)
-        {
-            add_planet(planet,lines);
-        }
 
         if (print_menu() != NO_ERROR)
         {
@@ -82,6 +82,10 @@ int main(void)
             continue;
         }
 
+
+        /*Order the elements according to the distance from the sun*/
+        qsort((void *)planet, lines, sizeof(planet_t),distance_from_the_sun_from_nearest_to_farthest);
+        
         /*
          * Based on the user input, the program operations are called. See the
          * documentation in menu.h for more information about the options.
@@ -106,7 +110,7 @@ int main(void)
         case oper_new_element:
             lines++;
             realloc_planet_list(&planet,lines);
-            add_planet(planet,(lines-UNIT));
+            add_planet(planet,lines);
             break;
         case oper_exit:
             printf("\nExiting program...\n");
@@ -116,7 +120,6 @@ int main(void)
             printf("Unknown option.\n");
         }
 
-        prev_choice=user_selection;
     }
 
     return NO_ERROR;

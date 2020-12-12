@@ -91,41 +91,41 @@ int add_planet(planet_t *planet, unsigned int num){
   /*Adding new element's data into the array of structures*/
   printf("\n");
   printf("Enter the new element's name (make sure to write it in capital letters): ");
-  scanf("%s",planet[num].name);
+  scanf("%s",planet[num-UNIT].name);
   printf("Enter the new element's mass (10^24kg): ");
-  scanf("%f",&planet[num].mass);
+  scanf("%f",&planet[num-UNIT].mass);
   printf("Enter the new element's diameter (km): ");
-  scanf("%ld",&planet[num].diameter);
+  scanf("%ld",&planet[num-UNIT].diameter);
   printf("Enter the new element's density (kg/m^3): ");
-  scanf("%ld",&planet[num].density);
+  scanf("%ld",&planet[num-UNIT].density);
   printf("Enter the new element's gravity (m/s^2): ");
-  scanf("%f",&planet[num].gravity);
+  scanf("%f",&planet[num-UNIT].gravity);
   printf("Enter the new element's escape escape velocity (Km/s): ");
-  scanf("%f",&planet[num].escape_velocity);
+  scanf("%f",&planet[num-UNIT].escape_velocity);
   printf("Enter the new element's rotation period (hours): ");
-  scanf("%f",&planet[num].rotation_period);
+  scanf("%f",&planet[num-UNIT].rotation_period);
   printf("Enter the new element's lenght of a day (hours): ");
-  scanf("%f",&planet[num].lenght_of_a_day);
+  scanf("%f",&planet[num-UNIT].lenght_of_a_day);
   printf("Enter the new element's distance from the sun (10^6 km): ");
-  scanf("%Lf",&planet[num].distance_from_the_sun);
+  scanf("%Lf",&planet[num-UNIT].distance_from_the_sun);
   printf("Enter the new element's orbital period (terrestial days): ");
-  scanf("%Lf",&planet[num].orbital_period);
+  scanf("%Lf",&planet[num-UNIT].orbital_period);
   printf("Enter the new element's orbital velocity (km/s): ");
-  scanf("%f",&planet[num].orbital_velocity);
+  scanf("%f",&planet[num-UNIT].orbital_velocity);
   printf("Enter the new element's mean temperature (C): ");
-  scanf("%d",&planet[num].mean_temperature);
+  scanf("%d",&planet[num-UNIT].mean_temperature);
   printf("Enter the new element's surface pressure (atm):");
-  scanf("%s",planet[num].pressure);
+  scanf("%s",planet[num-UNIT].pressure);
   printf("Enter the new element's amount of known satelites: ");
-  scanf("%u",&planet[num].moons);
+  scanf("%u",&planet[num-UNIT].moons);
   printf("Does the new element have a ring system (1-Yes/2-No): ");
   scanf("%d",&ring_system);
   if (ring_system==yes)
   {
-    strcpy(planet[num].ring_system, "Yes");
+    strcpy(planet[num-UNIT].ring_system, "Yes");
   }
   else if(magnetic_field==no){
-    strcpy(planet[num].ring_system, "No");
+    strcpy(planet[num-UNIT].ring_system, "No");
   }
   else{
     printf("Invalid value \n");
@@ -134,51 +134,49 @@ int add_planet(planet_t *planet, unsigned int num){
   scanf("%d",&magnetic_field);
   if (magnetic_field==yes)
   {
-    strcpy(planet[num].magnetic_field, "Yes");
+    strcpy(planet[num-UNIT].magnetic_field, "Yes");
   }
   else if(magnetic_field==no){
-    strcpy(planet[num].magnetic_field, "No");
+    strcpy(planet[num-UNIT].magnetic_field, "No");
   }
   else{
     printf("Invalid value \n");
   }
    
   /*Adding new element's data into the data base*/
-  fputs(planet[num].name,fp);
-  fputs(",",fp);
-  fprintf(fp, "%f", planet[num].mass);
-  fputs(",",fp);
-  fprintf(fp, "%ld",planet[num].diameter);
-  fputs(",",fp);
-  fprintf(fp,"%ld",planet[num].density);
-  fputs(",",fp);
-  fprintf(fp,"%f",planet[num].gravity);
-  fputs(",",fp);
-  fprintf(fp,"%f",planet[num].escape_velocity);
-  fputs(",",fp);
-  fprintf(fp,"%f",planet[num].rotation_period);
-  fputs(",",fp);
-  fprintf(fp,"%f",planet[num].lenght_of_a_day);
-  fputs(",",fp);
-  fprintf(fp,"%Lf",planet[num].distance_from_the_sun);
-  fputs(",",fp);
-  fprintf(fp,"%Lf",planet[num].orbital_period);
-  fputs(",",fp);
-  fprintf(fp,"%f",planet[num].orbital_velocity);
-  fputs(",",fp);
-  fprintf(fp,"%d",planet[num].mean_temperature);
-  fputs(",",fp);
-  fputs(planet[num].pressure,fp);
-  fputs(",",fp);
-  fprintf(fp,"%u",planet[num].moons);
-  fputs(",",fp);
-  fputs(planet[num].ring_system,fp);
-  fputs(",",fp);
-  fputs(planet[num].magnetic_field,fp);
   fputs("\n",fp);
-
+  fputs(planet[num-UNIT].name,fp);
+  fputs(",",fp);
+  fprintf(fp, "%f", planet[num-UNIT].mass);
+  fputs(",",fp);
+  fprintf(fp, "%ld",planet[num-UNIT].diameter);
+  fputs(",",fp);
+  fprintf(fp,"%ld",planet[num-UNIT].density);
+  fputs(",",fp);
+  fprintf(fp,"%f",planet[num-UNIT].gravity);
+  fputs(",",fp);
+  fprintf(fp,"%f",planet[num-UNIT].escape_velocity);
+  fputs(",",fp);
+  fprintf(fp,"%f",planet[num-UNIT].rotation_period);
+  fputs(",",fp);
+  fprintf(fp,"%f",planet[num-UNIT].lenght_of_a_day);
+  fputs(",",fp);
+  fprintf(fp,"%Lf",planet[num-UNIT].distance_from_the_sun);
+  fputs(",",fp);
+  fprintf(fp,"%Lf",planet[num-UNIT].orbital_period);
+  fputs(",",fp);
+  fprintf(fp,"%f",planet[num-UNIT].orbital_velocity);
+  fputs(",",fp);
+  fprintf(fp,"%d",planet[num-UNIT].mean_temperature);
+  fputs(",",fp);
+  fputs(planet[num-UNIT].pressure,fp);
+  fputs(",",fp);
+  fprintf(fp,"%u",planet[num-UNIT].moons);
+  fputs(",",fp);
+  fputs(planet[num-UNIT].ring_system,fp);
+  fputs(",",fp);
+  fputs(planet[num-UNIT].magnetic_field,fp);
 
   fclose(fp);
-
   return NO_ERROR;
 }
