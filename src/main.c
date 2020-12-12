@@ -8,6 +8,10 @@
 #include "menu.h"
 #include "planets.h"
 
+
+static int prev_choice=0; 
+
+
 int main(void)
 {
     /* The cont variable is used to stop the program based on user input. */
@@ -47,6 +51,12 @@ int main(void)
          * menu cannot be displayed, then the program must exit with an error
          * code.
          */
+
+        if (prev_choice==oper_new_element)
+        {
+            add_planet(planet,lines);
+        }
+
         if (print_menu() != NO_ERROR)
         {
             printf("Cannot display options\n");
@@ -57,6 +67,7 @@ int main(void)
              */
             exit(EIO);
         }
+
         /*
          * The user_selection variable is used to store the user input. The
          * selection function request the user input and puts it on the
@@ -92,6 +103,11 @@ int main(void)
         case oper_comparer:
             compare_planets(planet,lines);
             break;
+        case oper_new_element:
+            lines++;
+            realloc_planet_list(&planet,lines);
+            add_planet(planet,(lines-UNIT));
+            break;
         case oper_exit:
             printf("\nExiting program...\n");
             cont = false;
@@ -99,6 +115,8 @@ int main(void)
         default:
             printf("Unknown option.\n");
         }
+
+        prev_choice=user_selection;
     }
 
     return NO_ERROR;

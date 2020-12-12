@@ -29,3 +29,18 @@ int alloc_planet_list(planet_t **planet, unsigned int num)
 
     return NO_ERROR;
 }
+ 
+
+int realloc_planet_list(planet_t **planet, unsigned int num)
+{
+
+	*planet = (planet_t *)realloc(*planet,(num) * sizeof(planet_t));
+
+	    if(*planet==NULL)                     
+    {
+        printf("Error! memory could not be allocated.");
+        return ERROR;
+    }
+
+    return NO_ERROR;
+}

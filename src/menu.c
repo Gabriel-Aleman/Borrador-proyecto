@@ -23,6 +23,7 @@ menu_t options[] = {
     {.option = oper_display_solar_system_data, .text ="Display all the information available in the data base for all planets and other celestial objects."},
     {.option = oper_display_specific_fact_for_all_planets, .text = "Display a fact available in the data base of choice for all planets and other celestial objects."},
     {.option = oper_comparer, .text = "Obtain the ratio of a certain magnitude between two planets"},
+    {.option = oper_new_element, .text = "Add new element to data base"},
     {.option = oper_exit, .text = "Exit"}};
 
 void clear_input(void)

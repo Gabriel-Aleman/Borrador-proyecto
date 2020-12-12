@@ -8,6 +8,7 @@ enum oper_e
     oper_display_solar_system_data, /* Display information for all the planets in the solar system in a given order*/
     oper_display_specific_fact_for_all_planets, /* Display information for all the planets in the solar system in a given order*/
     oper_comparer, /* Obtain the factor of a certain magnitude for a planet in relation to another*/
+    oper_new_element,
     oper_exit, /* Operation to exit */
     oper_last /* Delimiter, keep as the last enum value! */
 };

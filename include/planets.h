@@ -34,6 +34,80 @@ typedef struct planet_s{
 	char magnetic_field[MAX_STR_LENGHT];
 }planet_t;
 
+/**************************************************************************/
+/*DYNAMIC MEMORY ISSUES*/
+/*
+ * Allocate memory for the required number of planets or celestial objects.
+ * Argument:
+ * planet: Double pointer to return the pointer where the planet list is
+ *        allocated.
+ * num:   Number of elements to be allocated.
+ * Return:
+ * ERROR if the memory cannot be allocated.
+ * NO_ERROR if the memory was succesfully  allocated.
+ */
+
+int alloc_planet_list(planet_t **planet, unsigned int num);
+
+/*
+ * Reallocate memory for the required number of planets or celestial objects.
+ * Argument:
+ * planet: Double pointer to return the pointer where the planet list is
+ *        allocated.
+ * num:   Number of elements to be allocated.
+ * Return:
+ * ERROR if the memory cannot be reallocated.
+ * NO_ERROR if the memory was succesfully  reallocated.
+ */
+
+int realloc_planet_list(planet_t **planet, unsigned int num);
+
+
+/**************************************************************************/
+
+/*FILE MANAGEMENT ISSUES*/
+
+/*
+ * Add a planet or celestial object into the array of structures
+ * based on the content of the data base.
+ * Argument:
+ * planet: Pointer to where the list's memory is allocated.
+ * num: Number of elements in the array of structures.
+ * Return:
+ * ERROR if the data base was not found.
+ * NO_ERROR if the data base could be found.
+ */
+
+int insert_planets(planet_t *planet, unsigned int num);
+
+/*
+ * This function gets the number of lines in the data base.
+ * Return:
+ * ERROR if the data base was not found.
+ * count if the data base could be found, and this parameter corresponds to
+ * the number of lines in the file.
+ */
+
+int get_lines(void);
+
+
+/*
+ * Add a planet or celestial object into the array of structures
+ * if requested by the user.
+ * Argument:
+ * planet: Pointer to where the list's memory is allocated.
+ * num: Number of elements in the array of structures.
+ * Return:
+ * ERROR if the data base was not found.
+ * NO_ERROR if the data base could be found and the functions task was
+ * succesfully completed.
+ */
+
+int add_planet(planet_t *planet, unsigned int num);
+
+/**************************************************************************/
+
+/*DISPLAY DATA FUNCTIONS*/
 
 /*
  * This function prints the criteria by which planets or celestial objects 
@@ -57,19 +131,6 @@ void show_available_facts_in_data_base(void);
 void show_comparable_facts_in_data_base(void);
 
 /*
- * Allocate memory for the required number of planets or celestial objects.
- * Argument:
- * planet: Double pointer to return the pointer where the planet list is
- *        allocated.
- * num:   Number of elements to the allocated.
- * Return:
- * ERROR if the memory cannot be allocated.
- * NO_ERROR if the memory was succesfully  allocated.
- */
-
-int alloc_planet_list(planet_t **planet, unsigned int num);
-
-/*
  * Sort planets or celestial objects according to provided value.
  * Argument:
  * planet: Pointer to where the list's memory is allocated.
@@ -80,31 +141,6 @@ int alloc_planet_list(planet_t **planet, unsigned int num);
  */
 
 int sort_by(planet_t *planet,  unsigned int num);
-
-
-/*
- * Add a planet or celestial object into the array of structures
- * based on the content of the data base.
- * Argument:
- * planet: Pointer to where the list's memory is allocated.
- * num: Number of elements in the array of structures.
- * Return:
- * ERROR if the data base was not found.
- * NO_ERROR if the data base could be found.
- */
-
-int insert_planets(planet_t *planet, unsigned int num);
-
-/*
- * Get the number of lines in the data base, since it will equal the size
- * of the array of structures that contains all the information.
- * the information to be used.
- * Return:
- * ERROR if the data base was not found.
- * NO_ERROR if the data base could be found.
- */
-
-int get_lines(void);
 
 /*
  * This function sole purpose is to print all the information for a planet
@@ -194,3 +230,7 @@ int show_specific_fact_for_all_planets(planet_t *planet,unsigned int num);
  */
 
 int compare_planets(planet_t *planet,unsigned int num);
+
+
+
+
